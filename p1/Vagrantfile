@@ -24,4 +24,3 @@ Vagrant.configure("2") do |config|
       worker.vm.provision "shell" , privileged: true, path: "./scripts/installWorker.sh"
     end
   end
-  
