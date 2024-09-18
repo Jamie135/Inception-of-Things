@@ -6,26 +6,18 @@ apt-get update -y && apt-get install -y curl
 
 echo -e "\033[1;32m--- Installing K3s ---\033[0m"
 
+# --node-ip=$SERVER_IP: specifies the node's IP address which is set earlier in the Vagrantfile
+# --flannel-iface=eth1: allows K3s to use the eth1 network interface, which is critical for networking between the virtual machines on the private network
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --write-kubeconfig-mode=644 --node-ip 192.168.56.110 --flannel-iface eth1" sh -s -
 
-curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE="644" \
-    # --node-ip=$SERVER_IP: specifies the node's IP address which is set earlier in the Vagrantfile
-    # --flannel-iface=eth1: allows K3s to use the eth1 network interface, which is critical for networking between the virtual machines on the private network
-    INSTALL_K3S_EXEC="--node-ip=$SERVER_IP --flannel-iface=eth1" \
-    sh -
+# wait unitl the node-token file is created
+while [ ! -e /var/lib/rancher/k3s/server/node-token ]
+    do
+        sleep 2
+    done
 
-# copies the K3s node-token (used for authenticating worker nodes to the master node)
-# from the server’s directory to the /vagrant/ folder, it will allow the Worker node to access this token
-sudo cp -v /var/lib/rancher/k3s/server/node-token /vagrant/
+sudo cp /var/lib/rancher/k3s/server/node-token /vagrant/
 
-if ! grep 'kubectl get all' /home/vagrant/.bashrc; then
-	echo "
-  echo
-  echo -e '\033[1mkubectl get node -o wide:\033[0m'
-  sudo kubectl get node -o wide
-  echo
-  echo -e '\033[1mifconfig eth1 (ip addr | grep 'eth1:' -A 6):\033[0m'
-  ip addr | grep 'eth1:' -A 6
-  " >>/home/vagrant/.bashrc
-fi
+sudo cp /etc/rancher/k3s/k3s.yaml /vagrant/
 
 echo "\033[1;3;34m--- K3s server installation complete on pbureeraS ---\033[0m"
