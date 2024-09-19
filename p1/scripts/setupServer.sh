@@ -2,7 +2,7 @@
 
 echo -e "\033[1;3;34m--- Server script starting ---\033[0m"
 
-apt-get update -y && apt-get install -y curl
+apk update && apk add curl
 
 echo -e "\033[1;32m--- Installing K3s ---\033[0m"
 
@@ -16,8 +16,8 @@ while [ ! -e /var/lib/rancher/k3s/server/node-token ]
         sleep 2
     done
 
-sudo cp /var/lib/rancher/k3s/server/node-token /vagrant/
+sudo cp /var/lib/rancher/k3s/server/node-token /vagrant/node-token
 
-sudo cp /etc/rancher/k3s/k3s.yaml /vagrant/
+sudo cp /etc/rancher/k3s/k3s.yaml /vagrant/k3s.yaml
 
 echo "\033[1;3;34m--- K3s server installation complete on pbureeraS ---\033[0m"
