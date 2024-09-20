@@ -16,8 +16,12 @@ while [ ! -e /var/lib/rancher/k3s/server/node-token ]
         sleep 2
     done
 
+if [ ! -d /vagrant ]; then
+    sudo mkdir -p /vagrant
+fi
+
 sudo cp /var/lib/rancher/k3s/server/node-token /vagrant/node-token
 
 sudo cp /etc/rancher/k3s/k3s.yaml /vagrant/k3s.yaml
 
-echo "\033[1;3;34m--- K3s server installation complete on pbureeraS ---\033[0m"
+echo -e "\033[1;3;34m--- K3s server installation complete on pbureeraS ---\033[0m"

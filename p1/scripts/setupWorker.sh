@@ -13,4 +13,4 @@ curl -sfL https://get.k3s.io | K3S_URL=https://192.168.56.110:6443 \
 	sh -
     sleep 10
 
-echo "\033[1;3;34m--- K3s worker installation complete on pbureeraSW ---\033[0m"
+echo -e "\033[1;3;34m--- K3s worker installation complete on pbureeraSW ---\033[0m"
