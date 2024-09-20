@@ -4,8 +4,8 @@ Vagrant.configure("2") do |config|
 
     config.vm.define "pbureeraS" do |server|
         server.vm.hostname = "pbureeraS"
-        server.vm.network "private_network", ip: "192.168.57.110"
-        server.vm.synced_folder ".", "/vagrant", type:"virtualbox"
+        server.vm.network "private_network", ip: "192.168.56.110"
+        server.vm.synced_folder "./confs", "/vagrant", type:"virtualbox"
         server.vm.provider "virtualbox" do |v|
             v.name = "pbureeraS"
             v.memory = 1024
@@ -16,8 +16,8 @@ Vagrant.configure("2") do |config|
 
     config.vm.define "pbureeraSW" do |worker|
         worker.vm.hostname = "pbureeraSW"
-        worker.vm.network "private_network", ip: "192.168.57.111"
-        worker.vm.synced_folder ".", "/vagrant", type:"virtualbox"
+        worker.vm.network "private_network", ip: "192.168.56.111"
+        worker.vm.synced_folder "./confs", "/vagrant", type:"virtualbox"
         worker.vm.provider "virtualbox" do |v|
             v.name = "pbureeraSW"
             v.memory = 1024
