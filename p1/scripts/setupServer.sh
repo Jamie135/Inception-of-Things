@@ -2,7 +2,10 @@
 
 echo -e "\033[1;3;34m--- Server script starting ---\033[0m"
 
-apk update && apk add curl
+apk update && apk add curl && apk add net-tools
+
+ip addr add 192.168.56.110/24 dev eth1
+ip link set eth1 up
 
 echo -e "\033[1;32m--- Installing K3s ---\033[0m"
 
@@ -11,17 +14,15 @@ echo -e "\033[1;32m--- Installing K3s ---\033[0m"
 curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --write-kubeconfig-mode=644 --node-ip 192.168.56.110 --flannel-iface eth1" sh -s -
 
 # wait unitl the node-token file is created
-while [ ! -e /var/lib/rancher/k3s/server/node-token ]
-    do
-        sleep 2
-    done
+NODE_TOKEN="/var/lib/rancher/k3s/server/node-token"
+while [ ! -e ${NODE_TOKEN} ]; do
+    sleep 2
+done
 
-if [ ! -d /vagrant ]; then
-    sudo mkdir -p /vagrant
-fi
+sudo cat ${NODE_TOKEN}
+sudo cp ${NODE_TOKEN} /vagrant/
 
-sudo cp /var/lib/rancher/k3s/server/node-token /vagrant/node-token
-
-sudo cp /etc/rancher/k3s/k3s.yaml /vagrant/k3s.yaml
+KUBE_CONFIG="/etc/rancher/k3s/k3s.yaml"
+sudo cp ${KUBE_CONFIG} /vagrant/
 
 echo -e "\033[1;3;34m--- K3s server installation complete on pbureeraS ---\033[0m"
