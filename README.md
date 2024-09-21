@@ -9,8 +9,8 @@
    - [Part 1: Cluster Setup](#part-1-cluster-setup)
    - [Part 2: Deploying Applications](#part-2-deploying-applications)
    - [Part 3: Implementing CI/CD with ArgoCD](#part-3-implementing-cicd-with-argocd)
-   - [Bonus Part: Setting Up Local GitLab for CI/CD](#bonus-part-setting-up-local-gitlab-for-cicd)
-4. [Further Learning Resources](#further-learning-resources)
+   - [Bonus: Setting Up Local GitLab for CI/CD](#bonus-setting-up-local-gitlab-for-cicd)
+4. [Useful Commands](#useful-commands)
 
 ## Introduction to Kubernetes
 Kubernetes is a powerful open-source platform that automates the management of containerized applications. It handles tasks such as deployment, scaling, operation and recovery making it easier to manage complex application environments.
@@ -79,13 +79,13 @@ Continuous Integration and Continuous Deployment (CI/CD) are essential practices
 1. **Install ArgoCD**: Set up ArgoCD, a declarative GitOps continuous delivery tool for Kubernetes.
 2. **Automate Deployments**: Configure ArgoCD to automatically deploy applications whenever there are changes in your code repository. This ensures that your deployments are always up-to-date with the latest changes.
 
-### Bonus Lab: Setting Up Local GitLab for CI/CD
+### Bonus: Setting Up Local GitLab for CI/CD
 In this optional lab, you’ll take CI/CD a step further by setting up a local GitLab instance and integrating it with ArgoCD:
 
 1. **Deploy GitLab**: Install and configure a local GitLab instance to manage your code repositories.
 2. **Integrate with ArgoCD**: Link GitLab with ArgoCD to enable automated CI/CD pipelines. This setup will allow you to push changes to your GitLab repository and have them automatically deployed to your Kubernetes cluster.
 
-## Useful commands
+## Useful Commands
 
 **Run Vagrantfile**
 ```bash
