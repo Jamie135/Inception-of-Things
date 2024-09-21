@@ -139,11 +139,3 @@ VBoxManage unregistervm vm_name --delete
 ```bash
 rm -rf /home/pbureera/VirtualBox\ VMs/vm_name
 ```
-
-## Further Resources
-To deepen your understanding of Kubernetes and related tools, here are some valuable resources:
-
-- [Introduction to Kubernetes (PDF)](./static/inception%20of%20things.pdf): A comprehensive guide covering the basics of Kubernetes.
-- [Kubernetes Video Tutorial](https://www.youtube.com/watch?v=X48VuDVv0do): A detailed video introduction to Kubernetes.
-- [ArgoCD Tutorial Video](https://www.youtube.com/watch?v=MeU5_k9ssrs&t=1802s): Learn how to set up and use ArgoCD for GitOps-based continuous delivery.
-- [cert-manager Automation Video](https://www.youtube.com/watch?v=D7ijCjE31GA): A tutorial on automating SSL certificate management in Kubernetes using cert-manager.
