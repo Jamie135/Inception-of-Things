@@ -103,13 +103,17 @@ vagrant ssh vm_name
 ```bash
 kubectl get nodes -o wide
 ```
+**Display running applications**
+```bash
+kubectl get all -n kube-system
+```
 **Display eth1 configuration**
 ```bash
 ifconfig eth1
 ```
-**Display running applications**
+**Send HTTP request to 192.168.56.110 associated to an app**
 ```bash
-kubectl get all -n kube-system
+curl -H "Host:app1.com" 192.168.56.110
 ```
 **Associate IP address to domain names**
 ```bash
@@ -131,13 +135,12 @@ VBoxManage unregistervm vm_name --delete
 ```bash
 VBoxManage unregistervm vm_name --delete
 ```
-**In case some files remain**
+**In case some files remain after deleting**
 ```bash
 rm -rf /home/pbureera/VirtualBox\ VMs/vm_name
 ```
 
-
-## Further Learning Resources
+## Further Resources
 To deepen your understanding of Kubernetes and related tools, here are some valuable resources:
 
 - [Introduction to Kubernetes (PDF)](./static/inception%20of%20things.pdf): A comprehensive guide covering the basics of Kubernetes.
