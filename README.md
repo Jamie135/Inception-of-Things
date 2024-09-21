@@ -5,11 +5,11 @@
    - [Core Components](#core-components)
    - [Key Concepts](#key-concepts)
 2. [Exploring Lightweight Kubernetes: k3s and k3d](#exploring-lightweight-kubernetes-k3s-and-k3d)
-3. [Practical Labs](#practical-labs)
-   - [Lab 1: Cluster Setup](#lab-1-cluster-setup)
-   - [Lab 2: Deploying Applications](#lab-2-deploying-applications)
-   - [Lab 3: Implementing CI/CD with ArgoCD](#lab-3-implementing-cicd-with-argocd)
-   - [Bonus Lab: Setting Up Local GitLab for CI/CD](#bonus-lab-setting-up-local-gitlab-for-cicd)
+3. [Project](#project)
+   - [Part 1: Cluster Setup](#part-1-cluster-setup)
+   - [Part 2: Deploying Applications](#part-2-deploying-applications)
+   - [Part 3: Implementing CI/CD with ArgoCD](#part-3-implementing-cicd-with-argocd)
+   - [Bonus Part: Setting Up Local GitLab for CI/CD](#bonus-part-setting-up-local-gitlab-for-cicd)
 4. [Further Learning Resources](#further-learning-resources)
 
 ## Introduction to Kubernetes
