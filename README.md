@@ -1,76 +1,94 @@
-# Kubernetes Introduction with k3s and k3d
+# Kubernetes with k3s and k3d
 
-## Key Concepts
-- k3s
-- k3d
-- Ingress
-- CI/CD
-- Vagrant
-- ArgoCD
-- Helm
+## Table of Contents
+1. [Introduction to Kubernetes](#introduction-to-kubernetes)
+   - [Core Components](#core-components)
+   - [Key Concepts](#key-concepts)
+2. [Exploring Lightweight Kubernetes: k3s and k3d](#exploring-lightweight-kubernetes-k3s-and-k3d)
+3. [Practical Labs](#practical-labs)
+   - [Lab 1: Cluster Setup](#lab-1-cluster-setup)
+   - [Lab 2: Deploying Applications](#lab-2-deploying-applications)
+   - [Lab 3: Implementing CI/CD with ArgoCD](#lab-3-implementing-cicd-with-argocd)
+   - [Bonus Lab: Setting Up Local GitLab for CI/CD](#bonus-lab-setting-up-local-gitlab-for-cicd)
+4. [Further Learning Resources](#further-learning-resources)
 
-## Overview of Kubernetes
-Kubernetes is an open-source platform designed to automate the deployment, scaling, and operation of application containers.
+## Introduction to Kubernetes
+Kubernetes is a powerful open-source platform that automates the management of containerized applications. It handles tasks such as deployment, scaling, and operation, making it easier to manage complex application environments.
 
 ### Core Components
-- **API Server**: The main management point of the cluster.
-- **etcd**: A consistent and highly-available key-value store used for all cluster data.
-- **Scheduler**: Distributes workloads across nodes.
-- **Controller Manager**: Manages various controllers to ensure the cluster's desired state matches the actual state.
-- **Kubelet**: Runs on each node and ensures containers are running.
-- **Kube-Proxy**: Handles network routing and rules.
+Kubernetes is built on several core components, each playing a crucial role in the functioning of the cluster:
 
-### kubectl
-A command-line interface for interacting with the Kubernetes API.
+- **API Server**: This is the central control point for the entire Kubernetes cluster. It exposes the Kubernetes API, serving as the gateway through which all administrative tasks are performed, whether by users or internal components.
+  
+- **etcd**: A distributed, reliable key-value store used by Kubernetes to store all its cluster data. It is critical for maintaining the desired state of the cluster and ensuring data consistency.
 
-### Node Types
-- **Master Node**: Manages the cluster.
-- **Worker Node**: Runs application workloads.
+- **Scheduler**: The component responsible for distributing workloads (Pods) across the various nodes in the cluster. It considers resource availability and other constraints to place Pods on the appropriate nodes.
 
-### Cluster
-A collection of nodes managed by Kubernetes.
+- **Controller Manager**: This is a daemon that runs various controllers. Controllers ensure that the cluster’s actual state matches the desired state as defined by the API Server. For example, the Node Controller ensures that nodes are functioning correctly, while the ReplicaSet Controller ensures that the correct number of Pods are running.
 
-### Pods
-The smallest deployable units in Kubernetes, consisting of one or more containers.
+- **Kubelet**: An agent that runs on every node in the cluster. It communicates with the API Server to receive Pod specifications and ensures that the containers described in the Pods are running and healthy.
 
-### Service
-Defines a logical set of Pods and a policy for accessing them.
+- **Kube-Proxy**: This network proxy runs on each node in the cluster, ensuring network traffic is correctly routed to and from containers. It manages the routing rules and load balancing for service traffic.
 
-### Ingress
-Manages external access to services within a cluster.
+### Key Concepts
+To effectively use Kubernetes, it’s important to understand several key concepts:
 
-### k3s
-A lightweight Kubernetes distribution.
+- **kubectl**: This is the command-line tool used to interact with the Kubernetes cluster. With `kubectl`, you can deploy applications, inspect and manage cluster resources, and view logs.
 
-### k3d
-Runs k3s clusters inside Docker containers for easy local development and testing.
+- **Node Types**:
+  - **Master Node**: The brain of the Kubernetes cluster, responsible for managing the cluster’s state and coordinating all activities. It runs the API Server, etcd, Scheduler, and Controller Manager.
+  - **Worker Node**: These nodes run your application workloads. They host the containers that make up your applications and are managed by the Master Node.
 
-### Deployment
-Manages the desired state of application Pods, including updates and scaling.
+- **Cluster**: A Kubernetes cluster is a collection of nodes (both master and worker) that work together to run containerized applications. The Master Node orchestrates all operations, while Worker Nodes handle the execution of the workloads.
 
-### Helm
-A package manager for Kubernetes, simplifying application deployment and management.
+- **Pods**: The smallest deployable unit in Kubernetes, a Pod represents a single instance of a running process in your cluster. Pods typically contain one or more containers that share the same network namespace and storage volumes.
 
-## Part 1: Setting Up the Cluster
-- Use Vagrant to create two virtual machines.
-- Install k3s on both machines.
-- Configure the cluster with:
-  - One master node
-  - One worker node
+- **Service**: A Kubernetes Service provides a stable IP address and DNS name for a set of Pods, enabling external access to them. Services abstract away the complexity of pod IP addresses and load balancing.
 
-## Part 2: Application Deployment
-- Deploy three applications using `kubectl`.
-- Set up Ingress for external access.
+- **Ingress**: Ingress is a collection of rules that allow external HTTP and HTTPS access to services within a Kubernetes cluster. It acts as an entry point to the cluster’s services, providing load balancing, SSL termination, and name-based virtual hosting.
 
-## Part 3: CI/CD with ArgoCD
-- Configure ArgoCD for automatic application deployment on code changes.
+- **Deployment**: A Kubernetes Deployment automates the creation and management of Pods. It defines the desired state for your application and ensures that the right number of Pods are running at all times. Deployments are also used for rolling updates and rollbacks.
 
-## Bonus: Local GitLab for CI/CD
-- Deploy a local GitLab instance.
-- Integrate GitLab with ArgoCD.
+- **Helm**: Helm is a package manager for Kubernetes, akin to `apt` for Debian or `yum` for Red Hat. Helm simplifies the deployment and management of applications by packaging them as Charts, which can be easily installed, updated, and managed.
 
-## Resources
-- [Subject](./static/inception%20of%20things.pdf)
-- [Kubernetes Video](https://www.youtube.com/watch?v=X48VuDVv0do)
-- [ArgoCD Tutorial](https://www.youtube.com/watch?v=MeU5_k9ssrs&t=1802s)
-- [cert-manager Automation](https://www.youtube.com/watch?v=D7ijCjE31GA)
+## Exploring Lightweight Kubernetes: k3s and k3d
+Kubernetes can be resource-intensive, which can be a challenge for smaller environments or local development. This is where lightweight distributions like k3s and k3d come in:
+
+- **k3s**: Developed by Rancher Labs, k3s is a lightweight, production-grade Kubernetes distribution. It is designed to be easy to install and run, especially in resource-constrained environments like IoT devices or small VMs. k3s combines many of Kubernetes' essential components into a single binary, reducing overhead and complexity.
+
+- **k3d**: k3d allows you to run k3s clusters within Docker containers. This makes it extremely convenient for local development and testing, as you can quickly spin up and tear down clusters without the need for dedicated hardware. k3d simplifies the management of these clusters and integrates seamlessly with Docker’s networking and storage.
+
+## Practical Labs
+
+### Lab 1: Cluster Setup
+In this lab, you’ll set up a basic Kubernetes cluster using k3s. This involves creating virtual machines and installing k3s:
+
+1. **Create Virtual Machines**: Use Vagrant to provision two virtual machines that will serve as nodes in your Kubernetes cluster.
+2. **Install k3s**: Install the k3s distribution on both machines. This lightweight Kubernetes will serve as the backbone of your cluster.
+3. **Cluster Configuration**: Set up your cluster with one machine acting as the Master Node and the other as the Worker Node. You’ll learn how to join the Worker Node to the cluster and verify that both nodes are communicating correctly.
+
+### Lab 2: Deploying Applications
+Once your cluster is up and running, you’ll deploy applications to it:
+
+1. **Application Deployment**: Deploy three different applications using `kubectl`, exploring different deployment strategies.
+2. **Ingress Configuration**: Set up Ingress resources to manage external access to your deployed applications. You’ll learn how to configure routing, handle SSL, and manage virtual hosts.
+
+### Lab 3: Implementing CI/CD with ArgoCD
+Continuous Integration and Continuous Deployment (CI/CD) are essential practices for modern application development. In this lab, you’ll:
+
+1. **Install ArgoCD**: Set up ArgoCD, a declarative GitOps continuous delivery tool for Kubernetes.
+2. **Automate Deployments**: Configure ArgoCD to automatically deploy applications whenever there are changes in your code repository. This ensures that your deployments are always up-to-date with the latest changes.
+
+### Bonus Lab: Setting Up Local GitLab for CI/CD
+In this optional lab, you’ll take CI/CD a step further by setting up a local GitLab instance and integrating it with ArgoCD:
+
+1. **Deploy GitLab**: Install and configure a local GitLab instance to manage your code repositories.
+2. **Integrate with ArgoCD**: Link GitLab with ArgoCD to enable automated CI/CD pipelines. This setup will allow you to push changes to your GitLab repository and have them automatically deployed to your Kubernetes cluster.
+
+## Further Learning Resources
+To deepen your understanding of Kubernetes and related tools, here are some valuable resources:
+
+- [Introduction to Kubernetes (PDF)](./static/inception%20of%20things.pdf): A comprehensive guide covering the basics of Kubernetes.
+- [Kubernetes Video Tutorial](https://www.youtube.com/watch?v=X48VuDVv0do): A detailed video introduction to Kubernetes.
+- [ArgoCD Tutorial Video](https://www.youtube.com/watch?v=MeU5_k9ssrs&t=1802s): Learn how to set up and use ArgoCD for GitOps-based continuous delivery.
+- [cert-manager Automation Video](https://www.youtube.com/watch?v=D7ijCjE31GA): A tutorial on automating SSL certificate management in Kubernetes using cert-manager.
