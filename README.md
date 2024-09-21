@@ -58,7 +58,7 @@ Kubernetes can be resource-intensive, which can be a challenge for smaller envir
 
 - **k3d**: k3d allows you to run k3s clusters within Docker containers. This makes it extremely convenient for local development and testing, as you can quickly spin up and tear down clusters without the need for dedicated hardware. k3d simplifies the management of these clusters and integrates seamlessly with Docker’s networking and storage.
 
-## Practical Labs
+## Project
 
 ### Part 1: Cluster Setup
 In this part, you’ll set up a basic Kubernetes cluster using k3s. This involves creating virtual machines and installing k3s:
@@ -66,12 +66,6 @@ In this part, you’ll set up a basic Kubernetes cluster using k3s. This involve
 1. **Create Virtual Machines**: Use Vagrant to provision two virtual machines that will serve as nodes in your Kubernetes cluster.
 2. **Install k3s**: Install the k3s distribution on both machines. This lightweight Kubernetes will serve as the backbone of your cluster.
 3. **Cluster Configuration**: Set up your cluster with one machine acting as the Master Node and the other as the Worker Node. You’ll learn how to join the Worker Node to the cluster and verify that both nodes are communicating correctly.
-
-Useful commands:
-
-``bash
-vagrant up
-``
 
 ### Part 2: Deploying Applications
 Once your cluster is up and running, you’ll deploy applications to it:
@@ -90,6 +84,58 @@ In this optional lab, you’ll take CI/CD a step further by setting up a local G
 
 1. **Deploy GitLab**: Install and configure a local GitLab instance to manage your code repositories.
 2. **Integrate with ArgoCD**: Link GitLab with ArgoCD to enable automated CI/CD pipelines. This setup will allow you to push changes to your GitLab repository and have them automatically deployed to your Kubernetes cluster.
+
+## Useful commands
+
+**Run Vagrantfile**
+```bash
+vagrant up
+```
+**Destroy a machine**
+```bash
+vagrant destroy vm_name
+```
+**SSH to a machine**
+```bash
+vagrant ssh vm_name
+```
+**List all nodes in the cluster**
+```bash
+kubectl get nodes -o wide
+```
+**Display eth1 configuration**
+```bash
+ifconfig eth1
+```
+**Display running applications**
+```bash
+kubectl get all -n kube-system
+```
+**Associate IP address to domain names**
+```bash
+echo "192.168.56.110 app1.com app2.com app3.com" | sudo tee -a /etc/hosts
+```
+**List all machines**
+```bash
+VBoxManage list vms
+```
+**Poweroff a machine**
+```bash
+VBoxManage controlvm vm_name poweroff
+```
+**Unregister and delete a machine**
+```bash
+VBoxManage unregistervm vm_name --delete
+```
+**Unregister and delete a machine**
+```bash
+VBoxManage unregistervm vm_name --delete
+```
+**In case some files remain**
+```bash
+rm -rf /home/pbureera/VirtualBox\ VMs/vm_name
+```
+
 
 ## Further Learning Resources
 To deepen your understanding of Kubernetes and related tools, here are some valuable resources:
