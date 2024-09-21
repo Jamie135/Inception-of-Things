@@ -13,7 +13,7 @@
 4. [Further Learning Resources](#further-learning-resources)
 
 ## Introduction to Kubernetes
-Kubernetes is a powerful open-source platform that automates the management of containerized applications. It handles tasks such as deployment, scaling, and operation, making it easier to manage complex application environments.
+Kubernetes is a powerful open-source platform that automates the management of containerized applications. It handles tasks such as deployment, scaling, operation and recovery making it easier to manage complex application environments.
 
 ### Core Components
 Kubernetes is built on several core components, each playing a crucial role in the functioning of the cluster:
@@ -37,7 +37,7 @@ To effectively use Kubernetes, it’s important to understand several key concep
 
 - **Node Types**:
   - **Master Node**: The brain of the Kubernetes cluster, responsible for managing the cluster’s state and coordinating all activities. It runs the API Server, etcd, Scheduler, and Controller Manager.
-  - **Worker Node**: These nodes run your application workloads. They host the containers that make up your applications and are managed by the Master Node.
+  - **Woker Node**: These nodes run your application workloads. They host the containers that make up your applications and are managed by the Master Node.
 
 - **Cluster**: A Kubernetes cluster is a collection of nodes (both master and worker) that work together to run containerized applications. The Master Node orchestrates all operations, while Worker Nodes handle the execution of the workloads.
 
@@ -60,20 +60,26 @@ Kubernetes can be resource-intensive, which can be a challenge for smaller envir
 
 ## Practical Labs
 
-### Lab 1: Cluster Setup
-In this lab, you’ll set up a basic Kubernetes cluster using k3s. This involves creating virtual machines and installing k3s:
+### Part 1: Cluster Setup
+In this part, you’ll set up a basic Kubernetes cluster using k3s. This involves creating virtual machines and installing k3s:
 
 1. **Create Virtual Machines**: Use Vagrant to provision two virtual machines that will serve as nodes in your Kubernetes cluster.
 2. **Install k3s**: Install the k3s distribution on both machines. This lightweight Kubernetes will serve as the backbone of your cluster.
 3. **Cluster Configuration**: Set up your cluster with one machine acting as the Master Node and the other as the Worker Node. You’ll learn how to join the Worker Node to the cluster and verify that both nodes are communicating correctly.
 
-### Lab 2: Deploying Applications
+Useful commands:
+
+``bash
+vagrant up
+``
+
+### Part 2: Deploying Applications
 Once your cluster is up and running, you’ll deploy applications to it:
 
 1. **Application Deployment**: Deploy three different applications using `kubectl`, exploring different deployment strategies.
 2. **Ingress Configuration**: Set up Ingress resources to manage external access to your deployed applications. You’ll learn how to configure routing, handle SSL, and manage virtual hosts.
 
-### Lab 3: Implementing CI/CD with ArgoCD
+### Part 3: Implementing CI/CD with ArgoCD
 Continuous Integration and Continuous Deployment (CI/CD) are essential practices for modern application development. In this lab, you’ll:
 
 1. **Install ArgoCD**: Set up ArgoCD, a declarative GitOps continuous delivery tool for Kubernetes.
