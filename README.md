@@ -49,6 +49,8 @@ To effectively use Kubernetes, it’s important to understand several key concep
 
 - **Deployment**: A Kubernetes Deployment automates the creation and management of Pods. It defines the desired state for your application and ensures that the right number of Pods are running at all times. Deployments are also used for rolling updates and rollbacks.
 
+- **Namespace**: A namespace can be considered as a virtual cluster inside of a K8s cluster that is used to divide resources between multiple users or teams. It provides a mechanism to scope resources within a cluster, allowing for logical separation of resources and management. This could is very useful for cases such as having a limited environment capacity (RAM, CPU, etc.) or preventing deployment overwrite when working on a project with a large team.
+
 - **Helm**: Helm is a package manager for Kubernetes, akin to `apt` for Debian or `yum` for Red Hat. Helm simplifies the deployment and management of applications by packaging them as Charts, which can be easily installed, updated, and managed.
 
 ## Exploring Lightweight Kubernetes: k3s and k3d
@@ -87,6 +89,31 @@ In this optional lab, you’ll take CI/CD a step further by setting up a local G
 
 ## Useful Commands
 
+### Virtual Box
+
+**List all machines**
+```bash
+VBoxManage list vms
+```
+**Poweroff a machine**
+```bash
+VBoxManage controlvm vm_name poweroff
+```
+**Unregister and delete a machine**
+```bash
+VBoxManage unregistervm vm_name --delete
+```
+**Unregister and delete a machine**
+```bash
+VBoxManage unregistervm vm_name --delete
+```
+**In case some files remain after deleting**
+```bash
+rm -rf /home/pbureera/VirtualBox\ VMs/vm_name
+```
+
+### Vagrant
+
 **Run Vagrantfile**
 ```bash
 vagrant up
@@ -99,6 +126,9 @@ vagrant destroy vm_name
 ```bash
 vagrant ssh vm_name
 ```
+
+### kubectl
+
 **List all nodes in the cluster**
 ```bash
 kubectl get nodes -o wide
@@ -119,23 +149,55 @@ curl -H "Host:app1.com" 192.168.56.110
 ```bash
 echo "192.168.56.110 app1.com app2.com app3.com" | sudo tee -a /etc/hosts
 ```
-**List all machines**
+**List all pods**
 ```bash
-VBoxManage list vms
+kubectl get pod -o wide
 ```
-**Poweroff a machine**
+**Create a pod**
 ```bash
-VBoxManage controlvm vm_name poweroff
+kubectl create deployment pod_name --image=image_name
 ```
-**Unregister and delete a machine**
+**List all replicasets**
 ```bash
-VBoxManage unregistervm vm_name --delete
+kubectl get replicaset
 ```
-**Unregister and delete a machine**
+**Edit a pod**
 ```bash
-VBoxManage unregistervm vm_name --delete
+kubectl edit deployment pod_name
 ```
-**In case some files remain after deleting**
+**Execute a pod to interact with it**
 ```bash
-rm -rf /home/pbureera/VirtualBox\ VMs/vm_name
+kubectl exec -it pod_name -- bin/bash
+```
+**Delete a pod**
+```bash
+kubectl delete deployment pod_name
+```
+**Execute a configuration file**
+```bash
+kubectl apply -f config.yaml
+```
+**List all services**
+```bash
+kubectl get services
+```
+**List a service's configuration**
+```bash
+kubectl describe service service_name
+```
+**List all namespaces**
+```bash
+kubectl get namespace
+```
+**List all components bound to a namespace**
+```bash
+kubectl api-resources --namespaced=true
+```
+**List all components not bound to a namespace**
+```bash
+kubectl api-resources --namespaced=false
+```
+**List all namespaces**
+```bash
+kubectl get namespace
 ```
