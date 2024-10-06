@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo -e "\033[1;3;31m--- Uninstalling K3s ---\033[0m"
+echo "\033[1;3;31m--- Uninstalling K3s ---\033[0m"
 
 if command -v k3s &> /dev/null; then
     sudo /usr/local/bin/k3s-uninstall.sh
@@ -9,7 +9,7 @@ else
     echo "K3s is not installed."
 fi
 
-echo -e "\033[1;3;31m--- Uninstalling Docker ---\033[0m"
+echo "\033[1;3;31m--- Uninstalling Docker ---\033[0m"
 
 if command -v docker &> /dev/null; then
     sudo apt remove -y docker-ce docker-ce-cli containerd.io
@@ -24,7 +24,7 @@ else
     echo "Docker is not installed."
 fi
 
-echo -e "\033[1;3;31m--- Uninstalling kubectl ---\033[0m"
+echo "\033[1;3;31m--- Uninstalling kubectl ---\033[0m"
 
 if command -v kubectl &> /dev/null; then
     sudo rm /usr/local/bin/kubectl
@@ -33,14 +33,13 @@ else
     echo "kubectl is not installed."
 fi
 
-echo -e "\033[1;3;31m--- Uninstalling K3d ---\033[0m"
+echo "\033[1;3;31m--- Uninstalling K3d ---\033[0m"
 
 if command -v k3d &> /dev/null; then
-    k3d cluster delete p3-cluster
     sudo rm /usr/local/bin/k3d
     echo "K3d uninstalled."
 else
     echo "K3d is not installed."
 fi
 
-echo -e "\033[1;3;31m--- Cleanup complete ---\033[0m"
+echo "\033[1;3;31m--- Cleanup complete ---\033[0m"

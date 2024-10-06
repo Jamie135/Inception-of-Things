@@ -1,10 +1,10 @@
 #!/bin/sh
 
-echo -e "\033[1;3;34m--- Updating system ---\033[0m"
+echo "\033[1;3;34m--- Updating system ---\033[0m"
 
 sudo apt update
 
-echo -e "\033[1;3;34m--- Downloading K3s ---\033[0m"
+echo "\033[1;3;34m--- Downloading K3s ---\033[0m"
 
 if ! command -v k3s &> /dev/null; then
     curl -sfL https://get.k3s.io | sh -
@@ -16,7 +16,7 @@ else
     echo "K3s is already installed"
 fi
 
-echo -e "\033[1;3;34m--- Installing Docker ---\033[0m"
+echo "\033[1;3;34m--- Installing Docker ---\033[0m"
 
 if ! command -v docker &> /dev/null; then
     # Add Docker's official GPG key:
@@ -39,7 +39,7 @@ else
     echo "Docker is already installed"
 fi
 
-echo -e "\033[1;3;34m--- Installing kubectl ---\033[0m"
+echo "\033[1;3;34m--- Installing kubectl ---\033[0m"
 
 if ! command -v kubectl &> /dev/null; then
     KUBECTL_VERSION=$(curl -L -s https://dl.k8s.io/release/stable.txt)
@@ -50,7 +50,7 @@ else
     echo "kubectl is already installed"
 fi
 
-echo -e "\033[1;3;34m--- Installing K3d ---\033[0m"
+echo "\033[1;3;34m--- Installing K3d ---\033[0m"
 
 if ! command -v k3d &> /dev/null; then
     curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash
@@ -58,4 +58,8 @@ else
     echo "K3d is already installed"
 fi
 
-echo -e "\033[1;3;34m--- Setup complete ---\033[0m"
+curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+rm argocd-linux-amd64
+
+echo "\033[1;3;34m--- Setup complete ---\033[0m"
