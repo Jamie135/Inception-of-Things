@@ -212,4 +212,8 @@ sudo lsof -i :port_number
 ```bash
 sudo kill -9 PID
 ```
-**Add security exceptions on FireFox**: FireFox -> Search for View Certificates -> Servers -> Add Exception
+**Add security exceptions on FireFox**
+- Go to `Settings`
+- Search for `View Certificates`
+- On `Servers` tab, click on `Add Exception`
+- Enter the domain name
