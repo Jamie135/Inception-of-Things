@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/Jamie135/Inception-of-Things'
+    repoURL: 'https://github.com/Jamie135/IoT-pbureera'
     path: './'
     targetRevision: HEAD
   destination:

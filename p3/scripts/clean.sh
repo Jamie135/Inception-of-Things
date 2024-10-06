@@ -36,7 +36,7 @@ fi
 echo -e "\033[1;3;31m--- Uninstalling K3d ---\033[0m"
 
 if command -v k3d &> /dev/null; then
-    k3d cluster delete my-cluster
+    k3d cluster delete p3-cluster
     sudo rm /usr/local/bin/k3d
     echo "K3d uninstalled."
 else

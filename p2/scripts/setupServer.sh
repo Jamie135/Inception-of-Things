@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo -e "\033[1;3;34m--- Server script starting ---\033[0m"
 
 # Install K3s
