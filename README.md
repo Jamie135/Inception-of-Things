@@ -1,4 +1,4 @@
-# Kubernetes with k3s and k3d
+# Kubernetes
 
 ## Table of Contents
 1. [Introduction to Kubernetes](#introduction-to-kubernetes)
@@ -87,32 +87,9 @@ In this optional lab, you’ll take CI/CD a step further by setting up a local G
 1. **Deploy GitLab**: Install and configure a local GitLab instance to manage your code repositories.
 2. **Integrate with ArgoCD**: Link GitLab with ArgoCD to enable automated CI/CD pipelines. This setup will allow you to push changes to your GitLab repository and have them automatically deployed to your Kubernetes cluster.
 
-## Useful Commands
+# Useful Commands
 
-### Virtual Box
-
-**List all machines**
-```bash
-VBoxManage list vms
-```
-**Poweroff a machine**
-```bash
-VBoxManage controlvm vm_name poweroff
-```
-**Unregister and delete a machine**
-```bash
-VBoxManage unregistervm vm_name --delete
-```
-**Unregister and delete a machine**
-```bash
-VBoxManage unregistervm vm_name --delete
-```
-**In case some files remain after deleting**
-```bash
-rm -rf /home/pbureera/VirtualBox\ VMs/vm_name
-```
-
-### Vagrant
+## Vagrant
 
 **Run Vagrantfile**
 ```bash
@@ -127,7 +104,7 @@ vagrant destroy vm_name
 vagrant ssh vm_name
 ```
 
-### kubectl
+## kubectl
 
 **List all nodes in the cluster**
 ```bash
@@ -136,18 +113,6 @@ kubectl get nodes -o wide
 **Display running applications**
 ```bash
 kubectl get all -n kube-system
-```
-**Display eth1 configuration**
-```bash
-ifconfig eth1
-```
-**Send HTTP request to 192.168.56.110 associated to an app**
-```bash
-curl -H "Host:app1.com" 192.168.56.110
-```
-**Associate IP address to domain names**
-```bash
-echo "192.168.56.110 app1.com app2.com app3.com" | sudo tee -a /etc/hosts
 ```
 **List all pods**
 ```bash
@@ -205,3 +170,46 @@ kubectl get namespace
 ```bash
 kubectl get ingress
 ```
+
+## Virtual Box
+
+**List all machines**
+```bash
+VBoxManage list vms
+```
+**Poweroff a machine**
+```bash
+VBoxManage controlvm vm_name poweroff
+```
+**Unregister and delete a machine**
+```bash
+VBoxManage unregistervm vm_name --delete
+```
+**Unregister and delete a machine**
+```bash
+VBoxManage unregistervm vm_name --delete
+```
+**In case some files remain after deleting**
+```bash
+rm -rf /home/pbureera/VirtualBox\ VMs/vm_name
+```
+
+## Others
+
+**Display eth1 configuration**
+```bash
+ifconfig eth1
+```
+**Send HTTP request to 192.168.56.110 associated to an app**
+```bash
+curl -H "Host:app1.com" 192.168.56.110
+```
+**Identify a process using port number**
+```bash
+sudo lsof -i :port_number
+```
+**Kill a process**
+```bash
+sudo kill -9 PID
+```
+**Add security exceptions on FireFox**: FireFox -> Search for View Certificates -> Servers -> Add Exception
