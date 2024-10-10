@@ -37,3 +37,7 @@ argocd account update-password --current-password $ARGO_PWD --new-password admin
 # argocd repo add https://github.com/Jamie135/IoT-pbureera --insecure-skip-server-verification --username Jamie135 --password Jokerjum-135 --server localhost:9393
 
 echo -e "\033[1;3;34m--- Applying ArgoCD app configuration ---\033[0m"
+
+kubectl apply -f ./confs/argocd-app.yaml
+
+nohup bash -c 'while true; do kubectl port-forward svc/wil-playground -n dev 8888:8888; sleep 5; done' > /dev/null 2>&1 &
