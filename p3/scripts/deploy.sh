@@ -34,7 +34,7 @@ ARGO_PWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath=
 # echo "Password: $ARGO_PWD"
 argocd login localhost:9393 --username admin --password $ARGO_PWD --insecure
 argocd account update-password --current-password $ARGO_PWD --new-password admin123
-# argocd repo add https://github.com/Jamie135/IoT-pbureera --insecure-skip-server-verification --username Jamie135 --password Jokerjum-135 --server localhost:9393
+# argocd repo add https://github.com/Jamie135/IoT-pbureera --insecure-skip-server-verification --username admin --password admin123 --server localhost:9393
 
 echo -e "\033[1;3;34m--- Applying ArgoCD app configuration ---\033[0m"
 
