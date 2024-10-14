@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Repository
+metadata:
+  name: gitlab-repo
+  namespace: argocd
+spec:
+  type: git
+  url: http://gitlab.example.com/root/test-app.git
+  usernameSecret:
+    name: gitlab-credentials
+    key: username
+  passwordSecret:
+    name: gitlab-credentials
+    key: password
