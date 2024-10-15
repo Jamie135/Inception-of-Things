@@ -30,10 +30,10 @@ echo -e "\033[1;3;34m--- ArgoCD Login ---\033[0m"
 
 nohup kubectl port-forward svc/argocd-server -n argocd 9393:443 >/dev/null 2>&1 &
 ARGO_PWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
-# echo "Username: admin"
-# echo "Password: $ARGO_PWD"
-argocd login localhost:9393 --username admin --password $ARGO_PWD --insecure
-argocd account update-password --current-password $ARGO_PWD --new-password admin123
+echo "Username: admin"
+echo "Password: $ARGO_PWD"
+# argocd login localhost:9393 --username admin --password $ARGO_PWD --insecure
+# argocd account update-password --current-password $ARGO_PWD --new-password admin123
 # argocd repo add https://github.com/Jamie135/IoT-pbureera --insecure-skip-server-verification --server localhost:9393
 # kubectl patch configmap argocd-cm -n argocd --type merge -p '{"data":{"repositories":"- url: https://github.com/Jamie135/IoT-pbureera\n insecure: true\n"}}'
 
