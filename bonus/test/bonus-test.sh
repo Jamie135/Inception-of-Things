@@ -1,20 +1,33 @@
 #!/bin/bash
 
+# Default paths for TLS certificate and private key
+DEFAULT_TLS_CERT_PATH="./tls.crt"
+DEFAULT_TLS_KEY_PATH="./tls.key"
+
 # Ensure mandatory parts are completed
 echo "Verifying mandatory parts..."
 kubectl get nodes
 kubectl get pods -A
 
+# Generate self-signed TLS certificate and key
+if [ ! -f "$DEFAULT_TLS_CERT_PATH" ] || [ ! -f "$DEFAULT_TLS_KEY_PATH" ]; then
+  echo "Generating self-signed TLS certificate and private key..."
+  openssl req -x509 -newkey rsa:4096 -keyout "$DEFAULT_TLS_KEY_PATH" -out "$DEFAULT_TLS_CERT_PATH" -days 365 -nodes -subj "/CN=gitlab.example.com"
+fi
+
 # Create the gitlab-tls secret if it doesn't exist
 if ! kubectl get secret -n gitlab gitlab-tls > /dev/null 2>&1; then
   echo "Creating gitlab-tls secret..."
-  kubectl create secret tls gitlab-tls --namespace gitlab --cert=path/to/tls.crt --key=path/to/tls.key
+  kubectl create secret tls gitlab-tls --namespace gitlab --cert=$DEFAULT_TLS_CERT_PATH --key=$DEFAULT_TLS_KEY_PATH
 fi
 
 # Create the gitlab-credentials secret if it doesn't exist
 if ! kubectl get secret -n argocd gitlab-credentials > /dev/null 2>&1; then
   echo "Creating gitlab-credentials secret..."
-  kubectl create secret generic gitlab-credentials -n argocd --from-literal=username=<your-gitlab-username> --from-literal=password=<your-gitlab-password>
+  read -p "Enter your Gitlab username: " gitlab_username
+  read -sp "Enter your Gitlab password: " gitlab_password
+  echo
+  kubectl create secret generic gitlab-credentials -n argocd --from-literal=username=$gitlab_username --from-literal=password=$gitlab_password
 fi
 
 # Apply Gitlab configuration
