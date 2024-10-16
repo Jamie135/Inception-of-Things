@@ -27,6 +27,12 @@ spec:
           mountPath: /var/log/gitlab
         - name: data
           mountPath: /var/opt/gitlab
+        env:
+        - name: GITLAB_OMNIBUS_CONFIG
+          value: |
+            external_url 'http://gitlab.example.com'
+            gitlab_rails['gitlab_shell_ssh_port'] = 22
+            gitlab_rails['initial_root_password'] = 'changeme'
       volumes:
       - name: config
         emptyDir: {}
