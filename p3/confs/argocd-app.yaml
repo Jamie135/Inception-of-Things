@@ -5,16 +5,16 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
+  source: # where ArgoCD should pull the k8s manifests from
     repoURL: 'https://github.com/Jamie135/IoT-pbureera'
     path: './'
-    targetRevision: HEAD
-  destination:
+    targetRevision: HEAD # lastest commit 
+  destination: # where the application should be deployed in the k8s cluster
     server: 'https://kubernetes.default.svc'
     namespace: dev
   syncPolicy:
     automated:
-      prune: true
-      selfHeal: true
+      prune: true # automatically delete any k8s resources that are no longer defined in the Git repository
+      selfHeal: true # automatically fix any drift between the live state in the cluster and the desired state in the Git repository
     syncOptions:
-      - CreateNamespace=true
+      - CreateNamespace=true # create the dev namespace in case it doesn't exist
