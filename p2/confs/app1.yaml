@@ -1,26 +1,26 @@
 apiVersion: v1
-kind: Service
+kind: Service # expose  the app-one application internally within the k8s cluster
 metadata:
-  name: app-one
+  name: app-one 
 spec:
   selector:
-    app: app-one
+    app: app-one # select pods with the name app-one so the service will forward traffic to this pods 
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 8080
+      port: 80 # listening on port 80
+      targetPort: 8080 # the port where the app is running
 
 ---
 
 apiVersion: apps/v1
-kind: Deployment
+kind: Deployment # deploys and manages the application app-one
 metadata:
   name: app-one
 spec:
-  replicas: 1
+  replicas: 1 # specifies that there will be 1 instance (pod) of app-one running
   selector:
     matchLabels:
-      app: app-one
+      app: app-one # matches pods that have the label app: app-one
   template:
     metadata:
       labels:
@@ -28,9 +28,9 @@ spec:
     spec:
       containers:
       - name: app-one
-        image: paulbouwer/hello-kubernetes:1.10
+        image: paulbouwer/hello-kubernetes:1.10 # pulls the Docker image which is a simple app that responds with a message
         env:
           - name: MESSAGE
             value: "Hello from app1."
         ports:
-        - containerPort: 80
+        - containerPort: 80 # exposes port 80

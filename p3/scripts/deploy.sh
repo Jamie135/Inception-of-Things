@@ -13,7 +13,7 @@ kubectl create namespace argocd
 kubectl create namespace dev
 
 echo -e "\033[1;3;34m--- Installing ArgoCD ---\033[0m"
-
+# wait until argocd pods are created and running
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 until kubectl -n argocd get pod -l app.kubernetes.io/name=argocd-server -o jsonpath="{.items[0].status.phase}" 2>/dev/null | grep -q "Running"; do
   echo "Waiting for ArgoCD server pod to be ready..."
@@ -21,13 +21,15 @@ until kubectl -n argocd get pod -l app.kubernetes.io/name=argocd-server -o jsonp
 done
 
 echo -e "\033[1;3;34m--- Set polling interval to 1 minute ---\033[0m"
-
+# allow argocd to update the synchronization every minute 
 kubectl -n argocd patch configmap argocd-cm -p '{"data": {"repository.pollingInterval": "1m"}}'
+# after applying the patch, it deletes and recreates the ArgoCD server pod to apply the configuration changes
 kubectl -n argocd delete pod -l app.kubernetes.io/name=argocd-server
 kubectl -n argocd wait --for=condition=ready pod -l app.kubernetes.io/name=argocd-server --timeout=300s
 
 echo -e "\033[1;3;34m--- ArgoCD Login ---\033[0m"
-
+# nohup allows a process to continue running in the background even if the user logs out or the terminal is closed
+# forwards port 8080 on the local machine (localhost) to port 443 on the ArgoCD server service
 nohup kubectl port-forward svc/argocd-server -n argocd 9393:443 >/dev/null 2>&1 &
 ARGO_PWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
 echo "Username: admin"

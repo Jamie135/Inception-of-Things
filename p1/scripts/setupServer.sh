@@ -10,6 +10,8 @@ while [ ! -e /var/lib/rancher/k3s/server/node-token ]; do
     sleep 2
 done
 
+# when installing k3s, key files such as node token and config files are created
+# they are critical for securely connecting additional nodes (workers) to the server
 sudo cp /var/lib/rancher/k3s/server/node-token /vagrant
 sudo cp /etc/rancher/k3s/k3s.yaml /vagrant/
 

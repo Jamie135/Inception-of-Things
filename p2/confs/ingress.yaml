@@ -1,5 +1,5 @@
 apiVersion: networking.k8s.io/v1
-kind: Ingress
+kind: Ingress # exposes app-* (from the app*.yaml) externally via the domain app*.com
 metadata:
   name: app1-ingress
 spec:
@@ -11,9 +11,9 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: app-one
+            name: app-one # request to the root (/) are routed to app-* service
             port:
-              number: 80
+              number: 80 # traffic is forwarded to port 80
 
 ---
 
