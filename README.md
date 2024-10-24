@@ -168,7 +168,7 @@ kubectl get namespace
 ```
 **List an ingress service**
 ```bash
-kubectl get ingress
+kubectl get ingress -n kube-system
 ```
 
 ## Virtual Box
