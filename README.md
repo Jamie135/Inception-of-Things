@@ -166,7 +166,7 @@ kubectl api-resources --namespaced=false
 ```bash
 kubectl get namespace
 ```
-**List an ingress service**
+**List ingress services from kube-system**
 ```bash
 kubectl get ingress -n kube-system
 ```
