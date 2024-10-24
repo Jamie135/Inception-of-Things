@@ -28,7 +28,7 @@ kubectl -n argocd patch configmap argocd-cm -p '{"data": {"repository.pollingInt
 kubectl -n argocd delete pod -l app.kubernetes.io/name=argocd-server
 kubectl -n argocd wait --for=condition=ready pod -l app.kubernetes.io/name=argocd-server --timeout=300s
 
-echo -e "\033[1;3;34m--- Add Gitlab charts ---\033[0m"
+echo -e "\033[1;3;34m--- Update Helm ---\033[0m"
 
 helm repo add gitlab https://charts.gitlab.io/
 helm repo update
