@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wil-playground
+  namespace: argocd
+spec:
+  project: default
+  source: # where ArgoCD should pull the k8s manifests from
+    repoURL: 'http://gitlab-webservice-default.gitlab.svc:8181/root/IoT-pbureera.git'
+    path: './'
+    targetRevision: HEAD # lastest commit 
+  destination: # where the application should be deployed in the k8s cluster
+    server: 'https://kubernetes.default.svc'
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true # automatically delete any k8s resources that are no longer defined in the Git repository
+      selfHeal: true # automatically fix any drift between the live state in the cluster and the desired state in the Git repository
+    syncOptions:
+      - CreateNamespace=true # create the dev namespace in case it doesn't exist
