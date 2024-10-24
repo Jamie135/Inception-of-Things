@@ -5,7 +5,9 @@ echo -e "\033[1;3;34m--- Creating p3-cluster ---\033[0m"
 if k3d cluster list | grep -q 'p3-cluster'; then
     k3d cluster delete p3-cluster
 fi
-# expose port 8888 on the local machine to port 31728 on the server
+# expose port 8888 on the local machine to port 31728 on the k8s server
+# when accessing localhost:8888 on your host machine, the traffic will be 
+# forwarded to the service inside the cluster on a specific port 31728
 k3d cluster create p3-cluster --port "8888:31728@server:0"
 
 echo -e "\033[1;3;34m--- Creating argocd and dev namespaces ---\033[0m"
