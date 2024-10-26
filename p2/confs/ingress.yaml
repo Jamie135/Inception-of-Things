@@ -8,7 +8,7 @@ spec:
     http:
       paths:
       - path: /
-        pathType: Prefix
+        pathType: Prefix # specified path will match all requests that start with /
         backend:
           service:
             name: app-one # request to the root (/) are routed to app-* service
