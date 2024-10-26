@@ -150,6 +150,10 @@ kubectl get services
 ```bash
 kubectl describe service service_name
 ```
+**List an ingress configuration for an applcation**
+```bash
+kubectl describe ingress application_name -n kube-system
+```
 **List all namespaces**
 ```bash
 kubectl get namespace
