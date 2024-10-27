@@ -32,7 +32,7 @@ kubectl -n argocd wait --for=condition=ready pod -l app.kubernetes.io/name=argoc
 
 echo -e "\033[1;3;34m--- ArgoCD Login ---\033[0m"
 # nohup allows a process to continue running in the background even if the user logs out or the terminal is closed
-# forwards port 8080 on the local machine (localhost) to port 443 on the ArgoCD server service
+# forwards port 9393 on the local machine (localhost) to port 443 on the ArgoCD server service
 nohup kubectl port-forward svc/argocd-server -n argocd 9393:443 >/dev/null 2>&1 &
 ARGO_PWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
 echo "Username: admin"
